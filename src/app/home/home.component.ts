@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ApiClientService } from '../services/api-client.service';
+import { CompaniesService } from '../services/api/companies.service';
 import { Company } from '../model/company';
 
 
@@ -11,7 +11,7 @@ export class HomeComponent {
   companies: Company[];
   total: number;
 
-  constructor(private apiClientService: ApiClientService) { }
+  constructor(private apiClientService: CompaniesService) { }
 
   ngOnInit() {
     this.getCompanies();
@@ -20,7 +20,10 @@ export class HomeComponent {
   getCompanies(): void {
     this.apiClientService.getCompanies()
                          .subscribe(
-                           companies => this.companies = companies.data,
+                           res => {
+                             this.companies = res.data,
+                             this.total = res.total
+                           }
                          );
   }
 }

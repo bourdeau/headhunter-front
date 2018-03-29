@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Company } from '../model/company';
+import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class ApiClientService {
 
-  private apiUrl = 'http://127.0.0.1:5000';
+  private apiUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  getCompanies (): Observable<Company[]> {
-    return this.http.get(this.apiUrl)
+  get (url): Observable<any[]> {
+    return this.http.get(this.apiUrl + url)
                     .map(res => res)
   }
 
