@@ -1,16 +1,18 @@
-import {Injectable} from '@angular/core';
-import {ApiClientService} from './api-client.service';
+import { Injectable } from '@angular/core';
+import { ApiClientService } from './api-client.service';
 
 @Injectable()
 
 export class CompaniesService {
 
-    constructor(private api: ApiClientService) {}
+  constructor(private api: ApiClientService) { }
 
-    /*
-    * Get Companies
-    */
-    public getCompanies(): any {
-        return this.api.get('/companies');
-    }
+  /*
+  * Get Companies
+  */
+  public getCompanies(page: number): any {
+    let params = { p: page };
+
+    return this.api.get('/companies', params);
+  }
 }

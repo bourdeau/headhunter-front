@@ -7,23 +7,29 @@ import { Company } from '../model/company';
   selector: 'app-root',
   templateUrl: './home.component.html'
 })
+
 export class HomeComponent {
   companies: Company[];
-  total: number;
+  collectionSize: 100;
+  page = 1;
 
   constructor(private apiClientService: CompaniesService) { }
 
   ngOnInit() {
-    this.getCompanies();
+    this.getCompanies(0);
   }
 
-  getCompanies(): void {
-    this.apiClientService.getCompanies()
-                         .subscribe(
-                           res => {
-                             this.companies = res.data,
-                             this.total = res.total
-                           }
-                         );
+  onPager(page: number): void {
+    this.getCompanies(page);
+  }
+
+  getCompanies(page: number): void {
+    this.apiClientService.getCompanies(page)
+      .subscribe(
+        res => {
+          this.companies = res.data,
+            this.collectionSize = res.total
+        }
+      );
   }
 }

@@ -27,7 +27,7 @@
               </ng-container>
           </tbody>
         </table>
-        <ngb-pagination [collectionSize]="10" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+        <ngb-pagination (pageChange)="onPager($event)" [collectionSize]="(collectionSize)" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
       </div>
     </main>
   </div>
